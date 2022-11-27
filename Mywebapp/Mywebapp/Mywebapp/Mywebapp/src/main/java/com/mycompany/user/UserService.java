@@ -19,6 +19,11 @@ public class UserService {
   public void save(User user) {
     repo.save(user);
   }
+  public void save(artical newArtical) {
+    /*
+    repo.save(newArtical);
+    */
+  }
 
   public User get(Integer id) throws UserNotFoundException {
     Optional<User> result = repo.findById(id);

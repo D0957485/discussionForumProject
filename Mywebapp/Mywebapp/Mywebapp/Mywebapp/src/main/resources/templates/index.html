@@ -11,6 +11,7 @@
   <h1>Welcome to FCU Discussion Forum</h1>
   <h2><a class="h2" th:href="@{/users/new}">Register</a></h2>
   <h2><a class="h2" th:href="@{/users/login}">Login</a></h2>
+  <h2><a class="h2" th:href="@{/articals/new}">Post</a></h2>
 
   <div>
     <table class="table table-bordered">
@@ -35,8 +36,11 @@
           <td>[[${artical.from}]]</td>
 
           <td>
+            <!--
             <a class="h4 mr-3" th:href="@{'/users/edit/'+ ${artical.id}}">Edit</a>
             <a class="h4" th:href="@{'/users/delete/'+ ${artical.id}}">Delete</a>
+            -->
+            <a class="h4" th:href="@{'/users/articalPage/'+ ${artical.id}}">View</a>
           </td>
         </tr>
       </th:block>

@@ -31,11 +31,25 @@ public class UserController {
     return "user_from";
   }
 
+  @GetMapping("/articals/new")
+  public String showArticalFrom(Model model) {
+    model.addAttribute("artical", new artical());
+    model.addAttribute("pageTitle", "Add New Artical");
+    return "artical_from";
+  }
+
   @GetMapping("/users/login")
   public String showLoginFrom(Model model) {
     model.addAttribute("user", new User());
-    model.addAttribute("pageTitle", "Add New User");
+    model.addAttribute("pageTitle", "Login");
     return "user_login_from";
+  }
+
+  @PostMapping("/articals/save")
+  public String saveArtical(artical newArtical, RedirectAttributes ra) {
+    service.save(newArtical);
+    ra.addFlashAttribute("message", "The user has been saved successfully.");
+    return "redirect:/";
   }
 
   @PostMapping("/users/save")
@@ -50,7 +64,7 @@ public class UserController {
     //here
     service.get(user.getId());
     ra.addFlashAttribute("message", "The user has been saved successfully.");
-    return "redirect:/";
+    return "index";
   }
 
   /**

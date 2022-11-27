@@ -50,4 +50,14 @@ public class artical {
   public void setFrom(String from) {
     this.from = from;
   }
+
+
+  @Override
+  public String toString() {
+    return "Artical{" +
+            "id=" + getId() +
+
+            ", topic='" + getTopic() + '\'' +
+            '}';
+  }
 }
