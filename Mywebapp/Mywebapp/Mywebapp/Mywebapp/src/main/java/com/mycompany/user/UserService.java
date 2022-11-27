@@ -11,6 +11,8 @@ import java.util.Optional;
 public class UserService {
   @Autowired
   private UserRepository repo;
+  private ArticalRepository repo2;
+  private CommentRepository repo3;
 
   public List<User> listAll() {
     return (List<User>) repo.findAll();
@@ -28,15 +30,16 @@ public class UserService {
     throw new UserNotFoundException("Could not find any users with ID" + id);
   }
 
-  @Autowired
-  private ArticalRepository repo2;
-
   public List<Artical> listAllArtical() {
     return (List<Artical>) repo2.findAll();
   }
 
   public void save(Artical user) {
     repo2.save(user);
+  }
+
+  public void save(Comment newComment) {
+    repo3.save(newComment);
   }
 
   public Artical getArticl(Integer id) throws UserNotFoundException {

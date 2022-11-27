@@ -59,6 +59,13 @@ public class UserController {
     return "redirect:/";
   }
 
+  @PostMapping("/comment/save")
+  public String saveComment(Comment comment, RedirectAttributes ra) {
+    service.save(comment);
+    ra.addFlashAttribute("message", "The user has been saved successfully.");
+    return "redirect:/";
+  }
+
   @PostMapping("/users/login")
   public String loginUser(User user, RedirectAttributes ra) throws UserNotFoundException {
     //here
