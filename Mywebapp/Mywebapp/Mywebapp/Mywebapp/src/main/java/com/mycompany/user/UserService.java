@@ -19,11 +19,6 @@ public class UserService {
   public void save(User user) {
     repo.save(user);
   }
-  public void save(artical newArtical) {
-    /*
-    repo.save(newArtical);
-    */
-  }
 
   public User get(Integer id) throws UserNotFoundException {
     Optional<User> result = repo.findById(id);
@@ -33,6 +28,36 @@ public class UserService {
     throw new UserNotFoundException("Could not find any users with ID" + id);
   }
 
+  @Autowired
+  private ArticalRepository repo2;
+
+  public List<Artical> listAllArtical() {
+    return (List<Artical>) repo2.findAll();
+  }
+
+  public void save(Artical user) {
+    repo2.save(user);
+  }
+
+  public Artical getArticl(Integer id) throws UserNotFoundException {
+    Optional<Artical> result = repo2.findById(id);
+    if (result.isPresent()) {
+      return result.get();
+    }
+    throw new UserNotFoundException("Could not find any users with ID" + id);
+  }
+
+    /*
+    Implement for the delete handling
+     */
+
+  public void deleteArtical(Integer id) throws UserNotFoundException {
+    Long count = repo2.countById(id);
+    if (count == null || count == 0) {
+      throw new UserNotFoundException("Could not find any users with ID" + id);
+    }
+    repo2.deleteById(id);
+  }
     /*
     Implement for the delete handling
      */

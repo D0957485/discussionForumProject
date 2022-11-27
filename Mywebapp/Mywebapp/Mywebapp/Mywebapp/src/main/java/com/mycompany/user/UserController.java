@@ -33,7 +33,7 @@ public class UserController {
 
   @GetMapping("/articals/new")
   public String showArticalFrom(Model model) {
-    model.addAttribute("artical", new artical());
+    model.addAttribute("artical", new Artical());
     model.addAttribute("pageTitle", "Add New Artical");
     return "artical_from";
   }
@@ -46,7 +46,7 @@ public class UserController {
   }
 
   @PostMapping("/articals/save")
-  public String saveArtical(artical newArtical, RedirectAttributes ra) {
+  public String saveArtical(Artical newArtical, RedirectAttributes ra) {
     service.save(newArtical);
     ra.addFlashAttribute("message", "The user has been saved successfully.");
     return "redirect:/";
