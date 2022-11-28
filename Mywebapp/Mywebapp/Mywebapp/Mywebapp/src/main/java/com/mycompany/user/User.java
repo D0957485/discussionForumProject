@@ -13,11 +13,11 @@ public class User {
   @Column(length = 45, nullable = false, name = "firstName")
   private String firstName;
 
-  @Column(length = 45, nullable = false, name = "studentId")
-  private String studentId;
+  @Column(length = 45, nullable = false, name = "account")
+  private String account;
 
-  @Column(length = 45, nullable = false, name = "className")
-  private String className;
+  @Column(length = 45, nullable = false, name = "password")
+  private String password;
 
   public Integer getId() {
     return id;
@@ -35,20 +35,20 @@ public class User {
     this.firstName = firstName;
   }
 
-  public String getStudentId() {
-    return studentId;
+  public String getAccount() {
+    return account;
   }
 
-  public void setStudentId(String studentId) {
-    this.studentId = studentId;
+  public void setAccount(String account) {
+    this.account = account;
   }
 
-  public String getClassName() {
-    return className;
+  public String getPassword() {
+    return password;
   }
 
-  public void setClassName(String className) {
-    this.className = className;
+  public void setPassword(String password) {
+    this.password = password;
   }
 
   @Override

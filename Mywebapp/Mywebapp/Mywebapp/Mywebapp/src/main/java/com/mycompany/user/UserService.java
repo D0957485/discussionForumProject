@@ -11,6 +11,8 @@ import java.util.Optional;
 public class UserService {
   @Autowired
   private UserRepository repo;
+  private ArticalRepository repo2;
+  private CommentRepository repo3;
 
   public List<User> listAll() {
     return (List<User>) repo.findAll();
@@ -28,6 +30,37 @@ public class UserService {
     throw new UserNotFoundException("Could not find any users with ID" + id);
   }
 
+  public List<Artical> listAllArtical() {
+    return (List<Artical>) repo2.findAll();
+  }
+
+  public void save(Artical user) {
+    repo2.save(user);
+  }
+
+  public void save(Comment newComment) {
+    repo3.save(newComment);
+  }
+
+  public Artical getArticl(Integer id) throws UserNotFoundException {
+    Optional<Artical> result = repo2.findById(id);
+    if (result.isPresent()) {
+      return result.get();
+    }
+    throw new UserNotFoundException("Could not find any users with ID" + id);
+  }
+
+    /*
+    Implement for the delete handling
+     */
+
+  public void deleteArtical(Integer id) throws UserNotFoundException {
+    Long count = repo2.countById(id);
+    if (count == null || count == 0) {
+      throw new UserNotFoundException("Could not find any users with ID" + id);
+    }
+    repo2.deleteById(id);
+  }
     /*
     Implement for the delete handling
      */

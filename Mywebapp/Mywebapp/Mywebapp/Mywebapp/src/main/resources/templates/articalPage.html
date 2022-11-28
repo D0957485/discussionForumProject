@@ -1,0 +1,42 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <title>Artical</title>
+</head>
+<body>
+<div class="container-fluid text-center">
+  <tr>
+
+    <td>
+      <h1>[[${artical.topic}]]</h1>
+      <a class="td" th:href="@{'/artical/edit/'+ ${artical.id}}">Delete</a>
+      &emsp;
+      &emsp;
+      &emsp;
+      <a class="td" th:href="@{/articals/comment}">Comment</a>
+      &emsp;
+      &emsp;
+      &emsp;
+      <a class="td" th:href="@{/articals/report}">Report</a>
+      &emsp;
+      &emsp;
+      &emsp;
+    </td>
+
+    <p></p>
+
+    <td>
+      <td>"@{${artical.id}}"</td>
+      &emsp;
+      &emsp;
+      &emsp;
+      <td>from [[${artical.from}]]</td>
+    </td>
+
+    <h2>[[${artical.content}]]</h2>
+
+  </tr>
+</div>
+</body>
+</html>
