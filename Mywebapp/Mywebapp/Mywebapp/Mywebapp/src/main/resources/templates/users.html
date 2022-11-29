@@ -23,9 +23,9 @@
 
                 <th>FirstName</th>
 
-                <th>StudentID</th>
+                <th>Account</th>
 
-                <th>Class</th>
+                <th>Password</th>
 
                 <th></th>
             </tr>
@@ -37,9 +37,9 @@
 
                     <td>[[${user.firstName}]]</td>
 
-                    <td>[[${user.studentId}]]</td>
+                    <td>[[${user.account}]]</td>
 
-                    <td>[[${user.className}]]</td>
+                    <td>[[${user.password}]]</td>
 
                     <td>
                         <a class="h4 mr-3" th:href="@{'/users/edit/'+ ${user.id}}">Edit</a>

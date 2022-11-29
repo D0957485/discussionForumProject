@@ -17,11 +17,11 @@ public class UserController {
   @Autowired
   private UserService service;
 
-  @GetMapping("/users")
+  @GetMapping("/users")  /* the url you want to show */
   public String showUserList(Model model) {
     List<User> listUsers = service.listAll();
     model.addAttribute("listUsers", listUsers);
-    return "users";
+    return "users"; /* you write the html file */
   }
 
   @GetMapping("/users/new")
@@ -31,13 +31,6 @@ public class UserController {
     return "user_from";
   }
 
-  @GetMapping("/articals/new")
-  public String showArticalFrom(Model model) {
-    model.addAttribute("artical", new Artical());
-    model.addAttribute("pageTitle", "Add New Artical");
-    return "artical_from";
-  }
-
   @GetMapping("/users/login")
   public String showLoginFrom(Model model) {
     model.addAttribute("user", new User());
@@ -45,12 +38,6 @@ public class UserController {
     return "user_login_from";
   }
 
-  @PostMapping("/articals/save")
-  public String saveArtical(Artical newArtical, RedirectAttributes ra) {
-    service.save(newArtical);
-    ra.addFlashAttribute("message", "The user has been saved successfully.");
-    return "redirect:/";
-  }
 
   @PostMapping("/users/save")
   public String saveUser(User user, RedirectAttributes ra) {
@@ -59,12 +46,6 @@ public class UserController {
     return "redirect:/";
   }
 
-  @PostMapping("/comment/save")
-  public String saveComment(Comment comment, RedirectAttributes ra) {
-    service.save(comment);
-    ra.addFlashAttribute("message", "The user has been saved successfully.");
-    return "redirect:/";
-  }
 
   @PostMapping("/users/login")
   public String loginUser(User user, RedirectAttributes ra) throws UserNotFoundException {
@@ -101,7 +82,6 @@ public class UserController {
       ra.addFlashAttribute("message", e.getMessage());
     }
     return "redirect:/users";
-
   }
 
 
