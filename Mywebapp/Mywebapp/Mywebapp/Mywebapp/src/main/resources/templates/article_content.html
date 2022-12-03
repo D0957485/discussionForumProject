@@ -1,0 +1,32 @@
+<!DOCTYPE html>
+<html lang="en" xmlns:th="http://www.thymeleaf.org">
+<head>
+  <meta charset="UTF-8">
+  <title th:text = "${article.title}"></title>
+  <link rel="stylesheet" th:href="@{/webjars/bootstrap/css/bootstrap.min.css}" type="text/css"/>
+</head>
+<body>
+<div class="container-fluid text-center">
+
+  <div class="alert-success text-center" th:if="${message}"></div>
+  <div>
+    <table class="table table-bordered">
+      <thead class="thead-dark">
+      <tr>
+        <th>createAccount</th>
+        <th>title</th>
+        <th>content</th>
+      </tr>
+      </thead>
+      <tbody>
+        <tr>
+          <td th:text = "${article.createAccount}"></td>
+          <td th:text = "${article.title}"></td>
+          <td th:text = "${article.content}"></td>
+        </tr>
+      </tbody>
+    </table>
+  </div>
+</div>
+</body>
+</html>

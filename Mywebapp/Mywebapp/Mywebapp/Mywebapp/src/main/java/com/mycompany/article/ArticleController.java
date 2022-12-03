@@ -26,6 +26,12 @@ public class ArticleController {
         model.addAttribute("listArticles", listArticles);
         return "articles";
     }
+    @GetMapping("articles/articlesIndex")
+    public String showWriteArticleList(Model model) {
+        List<Article> listArticles = service.listAll();
+        model.addAttribute("listArticles", listArticles);
+        return "articles_index";
+    }
 
     @GetMapping("/articles/new")
     public String showNewFrom(Model model) {
@@ -65,5 +71,17 @@ public class ArticleController {
         }
         return "redirect:/articles";
     }
+    @GetMapping("/articles/show/{id}")
+    public String showContent(@PathVariable("id") Integer id, Model model, RedirectAttributes ra) {
+        try {
+            Article article = service.get(id);
+            model.addAttribute("article", article);
+            model.addAttribute("pageTitle", "Edit User (ID: " + id + ")");
 
+            return "article_content";
+        } catch (ArticleNotFoundException e) {
+            ra.addFlashAttribute("message", e.getMessage());
+            return "redirect:/articles";
+        }
+    }
 }
