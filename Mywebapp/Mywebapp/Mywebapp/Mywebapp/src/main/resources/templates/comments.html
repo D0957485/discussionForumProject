@@ -1,0 +1,43 @@
+<!DOCTYPE html>
+<html lang="en" xmlns:th="http://www.thymeleaf.org">
+<head>
+    <meta charset="UTF-8">
+    <title>Manage Comments</title>
+    <link rel="stylesheet" th:href="@{/webjars/bootstrap/css/bootstrap.min.css}" type="text/css"/>
+
+</head>
+<body>
+<div class="container-fluid text-center">
+    <h2>Manage comments</h2>
+
+    <div class="alert-success text-center" th:if="${message}"></div>
+    <div>
+        <table class="table table-bordered">
+            <thead class="thead-dark">
+            <tr>
+                <th>ID</th>
+                <th>reply_name</th>
+                <th>reply_connent</th>
+                <th>article_id</th>
+                <th></th>
+            </tr>
+            </thead>
+            <tbody>
+                <th:block th:each="comment: ${listComments}">
+                    <tr>
+                        <td>[[${comment.id}]]</td>
+                        <td>[[${comment.replyName}]]</td>
+                        <td>[[${comment.replyContent}]]</td>
+                        <td>[[${comment.articleId}]]</td>
+                        <td>
+                            <a class="h4 mr-3" th:href="@{'/comments/edit/'+ ${comment.id}}">Edit</a>
+                            <a class="h4" th:href="@{'/comments/delete/'+ ${comment.id}}">Delete</a>
+                        </td>
+                    </tr>
+                </th:block>
+            </tbody>
+        </table>
+    </div>
+</div>
+</body>
+</html>

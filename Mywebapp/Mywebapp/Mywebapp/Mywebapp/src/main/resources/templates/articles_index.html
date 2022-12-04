@@ -7,31 +7,37 @@
 
 </head>
 <body>
-<div class="container-fluid text-center">
-
+<div class="container ">
   <div class="alert-success text-center" th:if="${message}"></div>
-  <div>
-    <div>
-      <button><a th:href="@{/articles/new}">寫文章</a></button>
-
+  <div class=".container bg-dark">
+    <div class="d-flex justify-content-around">
+      <nav class="navbar navbar-expand">
+        <div class="collapse navbar-collapse mx-2">
+          <ul class="nav navbar-nav">
+            <li class="nav-item"><a class="nav-link text-white" th:href="@{/articles/new}">寫文章</a></li>
+          </ul>
+        </div>
+      </nav>
     </div>
+  </div>
+  <div class="p-5">
+    <table class="table table-striped">
 
-    <table class="table table-bordered">
-      <thead class="thead-dark">
-      <tr>
-        <th>ID</th>
-        <th>createAccount</th>
-        <th>title</th>
-      </tr>
-      </thead>
       <tbody>
-      <th:block th:each="article: ${listArticles}">
         <tr>
-          <td>[[${article.id}]]</a></td>
-          <td>[[${article.createAccount}]]</td>
-          <td><a th:href="@{'/articles/show/'+ ${article.id}}">[[${article.title}]]</a></td>
+          <td class="text-center">編號</td>
+          <td class="text-center">標題</td>
         </tr>
-      </th:block>
+        <th:block th:each="article: ${listArticles}">
+          <tr>
+            <td class="text-center py-5">[[${article.id}]]</td>
+            <td>
+              <div class="d-flex justify-content-start">
+                <a th:href="@{'/articles/show/'+ ${article.id}}"><p class="fs-3 fw-bold">[[${article.title}]]</p></a>
+              </div>
+            </td>
+          </tr>
+        </th:block>
       </tbody>
     </table>
   </div>

@@ -1,7 +1,5 @@
 package com.mycompany.article;
 
-import com.mycompany.user.User;
-import com.mycompany.user.UserNotFoundException;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.stereotype.Service;
@@ -44,7 +42,7 @@ public class ArticleController {
     public String saveUser(Article article, RedirectAttributes ra) {
         service.save(article);
         ra.addFlashAttribute("message", "The user has been saved successfully.");
-        return "redirect:/";
+        return "redirect:/articles";
     }
 
     @GetMapping("/articles/edit/{id}")
@@ -52,7 +50,6 @@ public class ArticleController {
         try {
             Article article = service.get(id);
             model.addAttribute("article", article);
-            model.addAttribute("pageTitle", "Edit User (ID: " + id + ")");
 
             return "article_from";
         } catch (ArticleNotFoundException e) {
@@ -81,7 +78,7 @@ public class ArticleController {
             return "article_content";
         } catch (ArticleNotFoundException e) {
             ra.addFlashAttribute("message", e.getMessage());
-            return "redirect:/articles";
+            return "redirect:/";
         }
     }
 }
