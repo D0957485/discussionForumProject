@@ -46,6 +46,30 @@ public class UserController {
     return "redirect:/";
   }
 
+  @PostMapping("/users/loginto")
+  public String loginUser(User user, RedirectAttributes ra) {
+    List<User> allUsers = service.findAll();
+    for(int i = 0; i < allUsers.size(); i++) {
+
+      if(allUsers.get(i).getAccount() == user.getAccount()) {
+
+        if(allUsers.get(i).getPassword() == user.getPassword()) {
+
+          ra.addFlashAttribute("message", "The user has been login successfully.");
+          return "redirect:/";
+
+        } else {
+          ra.addFlashAttribute("message", "The user has a wrong password.");
+          return "redirect:/";
+        }
+
+      }
+
+    } //end for
+    ra.addFlashAttribute("message", "The user not found.");
+    return "redirect:/";
+  }
+
 
   /**
    * Immplementation of updated and delete

@@ -4,6 +4,7 @@ package com.mycompany.user;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
+import java.util.ArrayList;
 import java.util.List;
 import java.util.Optional;
 
@@ -18,6 +19,16 @@ public class UserService {
 
   public void save(User user) {
     repo.save(user);
+  }
+
+  public List<User> findAll() {
+
+    var it = repo.findAll();
+
+    var users = new ArrayList<User>();
+    it.forEach(e -> users.add(e));
+
+    return users;
   }
 
   public User get(Integer id) throws UserNotFoundException {
