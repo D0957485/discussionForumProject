@@ -44,7 +44,7 @@ public class ArticleController {
     public String saveUser(Article article, RedirectAttributes ra) {
         service.save(article);
         ra.addFlashAttribute("message", "The user has been saved successfully.");
-        return "redirect:/";
+        return "redirect:/articles/articlesIndex";
     }
 
     @GetMapping("/articles/edit/{id}")
