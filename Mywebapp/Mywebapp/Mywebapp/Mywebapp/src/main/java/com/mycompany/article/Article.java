@@ -1,13 +1,18 @@
 package com.mycompany.article;
 
+import com.fasterxml.jackson.annotation.JsonBackReference;
+import com.mycompany.user.User;
+
 import javax.persistence.*;
+
 @Entity
 @Table(name = "articles_test")
 
 public class Article {
+
   @Id
   @GeneratedValue(strategy = GenerationType.IDENTITY)
-  private Integer id;
+  private Integer article_id;
 
   @Column(length = 45, nullable = false, name = "createAccount")
   private String createAccount;
@@ -18,12 +23,17 @@ public class Article {
   @Column(length = 2000, nullable = false, name = "content")
   private String content;
 
-  public Integer getId() {
-    return id;
+  @JsonBackReference
+  @ManyToOne(cascade = CascadeType.ALL)
+  @JoinColumn(name="user_id", referencedColumnName="id")
+  private User user;
+
+  public Integer getArticle_id() {
+    return article_id;
   }
 
-  public void setId(Integer id) {
-    this.id = id;
+  public void setArticle_id(Integer article_id) {
+    this.article_id = article_id;
   }
 
   public String getCreateAccount() {
@@ -49,12 +59,14 @@ public class Article {
   public void setContent(String content) {
     this.content = content;
   }
+
   @Override
   public String toString() {
-    return "User{" +
-            "id=" + getId() +
-
-            ", title='" + getTitle() + '\'' +
+    return "Article{" +
+            "article_id=" + article_id +
+            ", createAccount='" + createAccount + '\'' +
+            ", title='" + title + '\'' +
+            ", content='" + content + '\'' +
             '}';
   }
 }

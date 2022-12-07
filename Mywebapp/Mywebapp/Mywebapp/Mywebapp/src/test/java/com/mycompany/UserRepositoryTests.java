@@ -1,7 +1,6 @@
 package com.mycompany;
 
 import com.mycompany.user.User;
-import com.mycompany.user.UserRepository;
 import org.assertj.core.api.Assertions;
 import org.junit.jupiter.api.Test;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -21,12 +20,12 @@ public class UserRepositoryTests {
     public void testAddNew() {
         User user = new User();
 
-        user.setName("abcjsdksjdk");
+        user.setNickName("abcjsdksjdk");
 
        User savedUser = repo.save(user);
        System.out.println(user);
        Assertions.assertThat(savedUser).isNotNull();
-       Assertions.assertThat(savedUser.getId()).isGreaterThan(0);
+       Assertions.assertThat(savedUser.getUser_id()).isGreaterThan(0);
     }
     @Test
     public void testListAll() {
@@ -43,11 +42,11 @@ public class UserRepositoryTests {
         Integer userId = 3;
         Optional<User> optionalUser = repo.findById(userId);
         User user = optionalUser.get();
-        user.setName("hghhhhheeee");
+        user.setNickName("hghhhhheeee");
         repo.save(user);
 
         User updatedUser = repo.findById(userId).get();
-        Assertions.assertThat(updatedUser.getName()).isEqualTo("hghhhhheeee");
+        Assertions.assertThat(updatedUser.getNickName()).isEqualTo("hghhhhheeee");
     }
 
     @Test
