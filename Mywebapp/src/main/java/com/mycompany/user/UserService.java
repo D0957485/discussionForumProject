@@ -4,8 +4,8 @@ package com.mycompany.user;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
-import java.util.ArrayList;
 import java.util.List;
+import java.util.Objects;
 import java.util.Optional;
 
 @Service
@@ -17,18 +17,24 @@ public class UserService {
     return (List<User>) repo.findAll();
   }
 
-  public void save(User user) {
-    repo.save(user);
+  public User loginuser(User checkUser) throws UserNotFoundException {
+
+    int count = repo.countByAccount(checkUser.getAccount());
+    if (count == 0) {
+      throw new UserNotFoundException("Could not find any users with Account " + checkUser.getAccount());
+    }
+    User hold = repo.findByAccount(checkUser.getAccount());
+    if(Objects.equals(checkUser.getPassword(), hold.getPassword())) {
+
+      return hold;
+
+    } else {
+      throw new UserNotFoundException("Password is not correct");
+    }
   }
 
-  public List<User> getAllUsers() {
-
-    var it = repo.findAll();
-
-    var users = new ArrayList<User>();
-    it.forEach(e -> users.add(e));
-
-    return users;
+  public void save(User user) {
+    repo.save(user);
   }
 
   public User get(Integer id) throws UserNotFoundException {

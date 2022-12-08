@@ -48,26 +48,20 @@ public class UserController {
 
   @PostMapping("/users/loginto")
   public String loginUser(User user, RedirectAttributes ra) {
-    List<User> allUsers = service.getAllUsers();
-    for(int i = 0; i < allUsers.size(); i++) {
 
-      if(allUsers.get(i).getAccount() == user.getAccount()) {
+    try {
 
-        if(allUsers.get(i).getPassword() == user.getPassword()) {
+      User hold = service.loginuser(user);
+      ra.addFlashAttribute("message", "Hi!" + hold.getNickName());
+      return "redirect:/";
+      //return mes;
 
-          ra.addFlashAttribute("message", "The user has been login successfully.");
-          return "redirect:/";
+    } catch (UserNotFoundException e) {
+      ra.addFlashAttribute("message", e.getMessage());
+      return  e.getMessage();
+      //return "redirect:user_login_from";
+    }
 
-        } else {
-          ra.addFlashAttribute("message", "The user has a wrong password.");
-          return "redirect:/";
-        }
-
-      }
-
-    } //end for
-    ra.addFlashAttribute("message", "The user not found.");
-    return "redirect:/";
   }
 
 

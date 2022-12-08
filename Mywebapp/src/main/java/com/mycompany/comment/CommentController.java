@@ -37,7 +37,7 @@ public class CommentController {
     public String saveComment(Comment comment, RedirectAttributes ra) {
         service.save(comment);
         ra.addFlashAttribute("message", "The user has been saved successfully.");
-        return "redirect:/comments";
+        return "redirect:/articles/articlesIndex";
     }
     @GetMapping("/comments/edit/{id}")
     public String showEditForm(@PathVariable("id") Integer id, Model model, RedirectAttributes ra) {

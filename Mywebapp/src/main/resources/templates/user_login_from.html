@@ -8,7 +8,7 @@
 </head>
 <body>
 <div class="container">
-    <form th:action="@{/users/save}" method="post" th:object="${user}">
+    <form th:action="@{/users/loginto}" method="post" th:object="${user}">
         <input type="hidden" th:field="*{id}">
         <div class="vh-100 gradient-custom bg-light">
             <div class=" h-100">
@@ -20,10 +20,10 @@
                                     <h2 class="fw-bold mb-2 text-uppercase">Login</h2>
                                     <p class="text-white-50 mb-5">Please enter your login and password!</p>
                                     <div class="mb-4">
-                                        <input type="text" placeholder="Account" class="form-control form-control-lg" />
+                                        <input type="text" th:field="*{account}" placeholder="Account" class="form-control form-control-lg" />
                                     </div>
                                     <div class="form-outline mb-4">
-                                        <input type="text" placeholder="Password" class="form-control form-control-lg"/>
+                                        <input type="text" th:field="*{password}" placeholder="Password" class="form-control form-control-lg"/>
                                     </div>
                                     <p class="small mb-5 pb-lg-2"><a class="text-white-50">Forgot password?</a></p>
                                     <div class="d-flex justify-content-around">
