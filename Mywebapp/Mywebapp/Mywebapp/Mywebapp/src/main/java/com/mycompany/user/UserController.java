@@ -48,7 +48,7 @@ public class UserController {
 
   @PostMapping("/users/loginto")
   public String loginUser(User user, RedirectAttributes ra) {
-    List<User> allUsers = service.findAll();
+    List<User> allUsers = service.getAllUsers();
     for(int i = 0; i < allUsers.size(); i++) {
 
       if(allUsers.get(i).getAccount() == user.getAccount()) {
