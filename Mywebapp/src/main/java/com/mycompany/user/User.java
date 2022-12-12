@@ -19,7 +19,15 @@ public class User {
   @Column(length = 45, nullable = false, name = "password")
   private String password;
 
+  public User() {
 
+  }
+
+  public User(String nickName, String account, String password) {
+    this.nickName = nickName;
+    this.account = account;
+    this.password = password;
+  }
 
   public Integer getId() {
     return id;
