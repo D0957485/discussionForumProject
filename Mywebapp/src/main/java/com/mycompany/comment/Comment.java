@@ -1,65 +1,70 @@
 package com.mycompany.comment;
 
 import com.mycompany.article.Article;
+import com.mycompany.user.User;
 import org.springframework.lang.NonNull;
 import javax.persistence.*;
+import java.sql.Time;
+
 @Entity
-@Table(name = "comment_test")
+@Table(name = "comment")
 
 public class Comment {
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
-    private Integer id;
+    private Integer comment_id;
 
-    @Column(length = 45, nullable = false, name = "replyName")
-    private String replyName;
+    @Column(length = 2000, nullable = false, name = "comment_content")
+    private String comment_content;
 
-    @Column(length = 2000, nullable = false, name = "replyContent")
-    private String replyContent;
+    @Column(nullable = false,name = "comment_time")
+    private Time time;
 
-    @Column(length = 45, nullable = false, name = "article_id")
-    private String articleId;
+    @ManyToOne(cascade = CascadeType.ALL)
+    @JoinColumn(nullable = false,name = "user_id")
+    private User user_id;
 
-    public Integer getId() {
-        return id;
+    @ManyToOne(cascade = CascadeType.ALL)
+    @JoinColumn(nullable = false, name = "article_id")
+    private Article article_id;
+
+    public Integer getComment_id() {
+        return comment_id;
     }
 
-    public void setId(Integer id) {
-        this.id = id;
+    public void setComment_id(Integer comment_id) {
+        this.comment_id = comment_id;
     }
 
-    public String getReplyName() {
-        return replyName;
+    public String getComment_content() {
+        return comment_content;
     }
 
-    public void setReplyName(String replyName) {
-        this.replyName = replyName;
+    public void setComment_content(String comment_content) {
+        this.comment_content = comment_content;
     }
 
-    public String getReplyContent() {
-        return replyContent;
+    public Time getTime() {
+        return time;
     }
 
-    public void setReplyContent(String replyContent) {
-        this.replyContent = replyContent;
+    public void setTime(Time time) {
+        this.time = time;
     }
 
-    public String getArticleId() {
-        return articleId;
+    public User getUser_id() {
+        return user_id;
     }
 
-    public void setArticleId(String articleId) {
-        this.articleId = articleId;
+    public void setUser_id(User user_id) {
+        this.user_id = user_id;
     }
 
-
-    @Override
-    public String toString() {
-        return "User{" +
-                "id=" + getId() +
-
-                ", replyName='" + getReplyName() + '\'' +
-                '}';
+    public Article getArticle_id() {
+        return article_id;
     }
 
+    public void setArticle_id(Article article_id) {
+        this.article_id = article_id;
+    }
 }
