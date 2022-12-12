@@ -46,6 +46,11 @@ public class UserController {
     return "redirect:/";
   }
 
+  @GetMapping("/users/rootuser")
+  public String superUser() {
+    return "rootpage";
+  }
+
   @PostMapping("/users/loginto")
   public String loginUser(User user, RedirectAttributes ra) {
 

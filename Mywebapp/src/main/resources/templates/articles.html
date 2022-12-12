@@ -9,9 +9,11 @@
 <body>
 <div class="container-fluid text-center">
   <h2>Manage Articles</h2>
+  <!--
   <div class="m-2">
     <a class="h3" th:href="@{/articles/new}">Add New Article</a>
   </div>
+  -->
 
   <div class="alert-success text-center" th:if="${message}"></div>
   <div>
@@ -37,7 +39,7 @@
           <td>[[${article.title}]]</td>
 
           <td>
-            <a class="h4 mr-3" th:href="@{'/articles/edit/'+ ${article.id}}">Edit</a>
+            <!--<a class="h4 mr-3" th:href="@{'/articles/edit/'+ ${article.id}}">Edit</a>-->
             <a class="h4" th:href="@{'/articles/delete/'+ ${article.id}}">Delete</a>
           </td>
         </tr>
