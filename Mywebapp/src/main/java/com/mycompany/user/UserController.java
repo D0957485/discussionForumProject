@@ -56,7 +56,7 @@ public class UserController {
 
     try {
 
-      User hold = service.loginuser(user);
+      User hold = service.loginUser(user);
       ra.addFlashAttribute("message", "Hi!" + hold.getNickName());
       return "redirect:/";
       //return mes;

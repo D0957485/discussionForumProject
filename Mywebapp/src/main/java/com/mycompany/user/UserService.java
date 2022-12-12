@@ -17,7 +17,7 @@ public class UserService {
     return (List<User>) repo.findAll();
   }
 
-  public User loginuser(User checkUser) throws UserNotFoundException {
+  public User loginUser(User checkUser) throws UserNotFoundException {
 
     int count = repo.countByAccount(checkUser.getAccount());
     if (count == 0) {
