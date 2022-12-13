@@ -2,6 +2,7 @@ package com.mycompany.user;
 
 
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.expression.spel.ast.NullLiteral;
 import org.springframework.stereotype.Service;
 
 import java.util.List;
@@ -19,8 +20,8 @@ public class UserService {
 
   public User loginUser(User checkUser) throws UserNotFoundException {
 
-    int count = repo.countByAccount(checkUser.getAccount());
-    if (count == 0) {
+    Long count = repo.countByAccount(checkUser.getAccount());
+    if (count == 0 || count == null) {
       throw new UserNotFoundException("Could not find any users with Account " + checkUser.getAccount());
     }
     User hold = repo.findByAccount(checkUser.getAccount());
