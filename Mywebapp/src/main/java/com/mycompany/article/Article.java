@@ -1,22 +1,28 @@
 package com.mycompany.article;
 
+import com.mycompany.user.User;
+
 import javax.persistence.*;
+import java.sql.Time;
+
 @Entity
-@Table(name = "articles_test")
+@Table(name = "article",uniqueConstraints = @UniqueConstraint(columnNames = {"article_title"}))
 
 public class Article {
   @Id
   @GeneratedValue(strategy = GenerationType.IDENTITY)
   private Integer id;
 
-  @Column(length = 45, nullable = false, name = "createAccount")
-  private String createAccount;
+  @Column(length = 45, nullable = false, name = "article_title")
+  private String article_title;
 
-  @Column(length = 45, nullable = false, name = "title")
-  private String title;
+  @Column(length = 2000, nullable = false, name = "article_content")
+  private String article_content;
 
-  @Column(length = 2000, nullable = false, name = "content")
-  private String content;
+
+  @ManyToOne(cascade = CascadeType.ALL)
+  @JoinColumn(nullable = false,name = "user_id")
+  private User user_id;
 
   public Integer getId() {
     return id;
@@ -26,35 +32,38 @@ public class Article {
     this.id = id;
   }
 
-  public String getCreateAccount() {
-    return createAccount;
+  public String getArticle_title() {
+    return article_title;
   }
 
-  public void setCreateAccount(String createAccount) {
-    this.createAccount = createAccount;
+  public void setArticle_title(String article_title) {
+    this.article_title = article_title;
   }
 
-  public String getTitle() {
-    return title;
+  public String getArticle_content() {
+    return article_content;
   }
 
-  public void setTitle(String title) {
-    this.title = title;
+  public void setArticle_content(String article_content) {
+    this.article_content = article_content;
   }
 
-  public String getContent() {
-    return content;
+
+  public User getUser_id() {
+    return user_id;
   }
 
-  public void setContent(String content) {
-    this.content = content;
+  public void setUser_id(User user_id) {
+    this.user_id = user_id;
   }
+
   @Override
   public String toString() {
     return "User{" +
             "id=" + getId() +
 
-            ", title='" + getTitle() + '\'' +
+            ", title='" + getArticle_title() + '\'' +
             '}';
   }
+
 }

@@ -7,6 +7,7 @@ import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.PostMapping;
+import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.servlet.mvc.support.RedirectAttributes;
 
 import java.util.List;
@@ -24,41 +25,42 @@ public class ArticleController {
         model.addAttribute("listArticles", listArticles);
         return "articles";
     }
-    @GetMapping("articles/articlesIndex")
+
+    @GetMapping("articlesIndex")
     public String showWriteArticleList(Model model) {
         List<Article> listArticles = service.listAll();
         model.addAttribute("listArticles", listArticles);
         return "articles_index";
     }
 
-    @GetMapping("/articles/new")
+    @GetMapping("/article/add")
     public String showNewFrom(Model model) {
         model.addAttribute("article", new Article());
         model.addAttribute("pageTitle", "Add New User");
-        return "article_from";
+        return "article_add";
     }
 
-    @PostMapping("/articles/save")
+    @PostMapping("/article/save")
     public String saveUser(Article article, RedirectAttributes ra) {
         service.save(article);
         ra.addFlashAttribute("message", "The user has been saved successfully.");
-        return "redirect:/articles";
+        return "redirect:/articlesIndex";
     }
 
-    @GetMapping("/articles/edit/{id}")
+    @GetMapping("/article/edit/{id}")
     public String showEditForm(@PathVariable("id") Integer id, Model model, RedirectAttributes ra) {
         try {
             Article article = service.get(id);
             model.addAttribute("article", article);
 
-            return "article_from";
+            return "article_add";
         } catch (ArticleNotFoundException e) {
             ra.addFlashAttribute("message", e.getMessage());
             return "redirect:/articles";
         }
     }
 
-    @GetMapping("/articles/delete/{id}")
+    @GetMapping("/article/delete/{id}")
     public String deleteUser(@PathVariable("id") Integer id, RedirectAttributes ra) {
         try {
             service.delete(id);
@@ -68,7 +70,7 @@ public class ArticleController {
         }
         return "redirect:/articles";
     }
-    @GetMapping("/articles/show/{id}")
+    @GetMapping("/article/{id}")
     public String showContent(@PathVariable("id") Integer id, Model model, RedirectAttributes ra) {
         try {
             Article article = service.get(id);

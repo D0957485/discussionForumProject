@@ -26,33 +26,33 @@ public class CommentController {
     }
 
 
-    @GetMapping("/comments/new")
+    @GetMapping("/comment/add")
     public String showNewFrom(Model model) {
         model.addAttribute("comment", new Comment());
         model.addAttribute("pageTitle", "Add New User");
-        return "comment_from";
+        return "comment_add";
     }
 
-    @PostMapping("/comments/save")
+    @PostMapping("/comment/save")
     public String saveComment(Comment comment, RedirectAttributes ra) {
         service.save(comment);
         ra.addFlashAttribute("message", "The user has been saved successfully.");
-        return "redirect:/comments";
+        return "redirect:/articlesIndex";
     }
-    @GetMapping("/comments/edit/{id}")
+    @GetMapping("/comment/edit/{id}")
     public String showEditForm(@PathVariable("id") Integer id, Model model, RedirectAttributes ra) {
         try {
             Comment comment = service.get(id);
             model.addAttribute("comment", comment);
 
-            return "comment_from";
+            return "comment_add";
         } catch (CommentNotFoundException e) {
             ra.addFlashAttribute("message", e.getMessage());
-            return "redirect:/comments";
+            return "redirect:/articlesIndex";
         }
     }
 
-    @GetMapping("/comments/delete/{id}")
+    @GetMapping("/comment/delete/{id}")
     public String deleteComment(@PathVariable("id") Integer id, RedirectAttributes ra) {
         try {
             service.delete(id);
@@ -62,23 +62,23 @@ public class CommentController {
         }
         return "redirect:/comments";
     }
-    @GetMapping("articles/commentReply")
+    @GetMapping("commentReply")
     public String showReplyArticleList(Model model) {
         List<Comment> listComments = service.listAll();
         model.addAttribute("listComments", listComments);
-        return "comment_reply";
+        return "comment_index";
     }
-    @GetMapping("/articles/show1/{articleId}")
-    public String showContent(@PathVariable("articleId") Integer id, Model model, RedirectAttributes ra) {
+    @GetMapping("/article/comment/{article.id}")
+    public String showContent(@PathVariable("article.id") Integer id, Model model, RedirectAttributes ra) {
         try {
             List<Comment> listComments = service.listAll();
             Comment comment = service.get(id);
             model.addAttribute("listComments", listComments);
             model.addAttribute("getId", comment);
-            return "comment_reply";
+            return "comment_index";
         } catch (CommentNotFoundException e) {
             ra.addFlashAttribute("message", e.getMessage());
-            return "redirect:/articles/show/{articleId}";
+            return "redirect:/articlesIndex";
         }
     }
 }

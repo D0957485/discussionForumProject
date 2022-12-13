@@ -12,13 +12,18 @@
 
   <div class="p-5">
     <table class="table table-striped">
+      <thead>
+        <tr>
+          <td>回應者名稱</td>
+          <td>回應內容</td>
+        </tr>
+      </thead>
       <tbody>
       <th:block th:each="comment: ${listComments}">
-        <th:block th:if="${(comment.articleId)} eq ${(getId.id)}">
+        <th:block th:if="${(comment.article_id.id)} eq ${(getId.id)}">
           <tr>
-            <td>[[${comment.replyName}]]</td>
-            <td>[[${comment.replyContent}]]</td>
-            <td>
+            <td>[[${comment.user_id.user_name}]]</td>
+            <td>[[${comment.comment_content}]]</td>
           </tr>
         </th:block>
       </th:block>

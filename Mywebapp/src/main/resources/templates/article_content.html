@@ -2,7 +2,7 @@
 <html lang="en" xmlns:th="http://www.thymeleaf.org">
 <head>
   <meta charset="UTF-8">
-  <title th:text = "${article.title}"></title>
+  <title th:text = "${article.article_title}"></title>
   <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.2.3/dist/css/bootstrap.min.css" rel="stylesheet">
   <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.2.3/dist/js/bootstrap.bundle.min.js"></script>
   <style>
@@ -22,42 +22,39 @@
   </style>
 </head>
 <body class="grid">
-  <div class="alert-success text-center" th:if="${message}"></div>
-  <div class=".container bg-dark">
-    <div class="d-flex justify-content-around">
-      <nav class="navbar navbar-expand">
-        <div class="collapse navbar-collapse mx-2">
-          <ul class="nav navbar-nav">
-            <li class="nav-item"><a class="nav-link text-white" th:href="@{/users/new}">Register</a></li>
-            <li class="nav-item"><a class="nav-link text-white" th:href="@{/users/login}">Login</a></li>
-          </ul>
-        </div>
-      </nav>
-    </div>
-  </div>
-  <div class="container" >
-    <section class="mt-5 px-5 bg-white">
-      <div class=" py-3">
-        <h1 th:text = "${article.title}"></h1>
-        <hr>
-      </div>
-      <div>
+<div class="alert-success text-center" th:if="${message}"></div>
+<div class=".container bg-dark">
+  <div class="d-flex justify-content-around">
+    <nav class="navbar navbar-expand">
+      <div class="collapse navbar-collapse mx-2">
 
-        <p th:text = "'樓主 : ' + ${article.createAccount}"></p>
       </div>
-      <div class="py-3">
-        <p th:text = "${article.content}"></p>
-      </div>
-    </section>
-    <section class="px-5 bg-light">
-      <br>
-      <div class="py-2">
-        <a th:href="@{'/comments/new'}"><p class="fs-3 fw-bold">回覆文章</p></a>
-        <a th:href="@{'/articles/show1/'+ ${article.id}}"><p class="fs-3 fw-bold">查看文章的所有回覆</p></a>
-      </div>
-      </table>
-    </section>
+    </nav>
   </div>
+</div>
+<div class="container" >
+  <section class="mt-5 px-5 bg-white">
+    <div class=" py-3">
+      <h1 th:text = "${article.article_title}"></h1>
+      <hr>
+    </div>
+    <div>
+
+      <p th:text = "'樓主 : ' + ${article.user_id.user_name}"></p>
+    </div>
+    <div class="py-3">
+      <p th:text = "${article.article_content}"></p>
+    </div>
+  </section>
+  <section class="px-5 bg-light">
+    <br>
+    <div class="py-2">
+      <a th:href="@{'/comment/add'}"><p class="fs-3 fw-bold">回覆文章</p></a>
+      <a th:href="@{'/article/comment/'+ ${article.id}}"><p class="fs-3 fw-bold">查看文章的所有回覆</p></a>
+    </div>
+    </table>
+  </section>
+</div>
 
 </body>
 </html>
