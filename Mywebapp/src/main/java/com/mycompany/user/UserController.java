@@ -26,7 +26,24 @@ public class UserController {
     model.addAttribute("listUsers", listUsers);
     return "users"; /* you write the html file */
   }
+  // not log in
+  @GetMapping("/")
+  public String notIn(HttpSession session) {
+      User user = new User();
+      session.setAttribute("Usersession",user);
+      return "index";
+  }
+  // log in
+  @GetMapping("/{id}")
+  public String logIn(@PathVariable("id") Integer id,HttpSession session) {
 
+    return "index";
+  }
+  // log out
+  @GetMapping("/logout")
+  public String logout(HttpSession session) {
+    return "redirect:/";
+  }
   @RequestMapping("/user/register")
   public String showRegisterForm(){
     return "user_register";
@@ -59,7 +76,7 @@ public class UserController {
         if(user_info.get(i).getUser_email().equals(user_email) && user_info.get(i).getUser_password().equals(user_password)){
           System.out.println("Login Successfully user : " + user_info.get(i).getUser_email());
           session.setAttribute("Usersession",user_info.get(i));
-          return "redirect:/";
+          return "redirect:/" + user_info.get(i).getId();
         }
       }
     }catch (Exception e){
