@@ -49,11 +49,31 @@
   <section class="px-5 bg-light">
     <br>
     <div class="py-2">
-      <a th:href="@{'/comment/add'}"><p class="fs-3 fw-bold">回覆文章</p></a>
+      <a th:href="@{'/comment/add/' + ${article.id} + '/' + ${session.Usersession.getId()}}"><p class="fs-3 fw-bold">回覆文章</p></a>
       <a th:href="@{'/article/comment/'+ ${article.id}}"><p class="fs-3 fw-bold">查看文章的所有回覆</p></a>
     </div>
     </table>
   </section>
+  <div class="p-5">
+    <table class="table table-striped">
+      <thead>
+      <tr>
+        <td>回應者名稱</td>
+        <td>回應內容</td>
+      </tr>
+      </thead>
+      <tbody>
+      <th:block th:each="comment: ${listComments}">
+        <th:block th:if="${(comment.getArticle_id().getId()) eq article.getId()}">
+          <tr>
+            <td>[[${comment.user_id.user_name}]]</td>
+            <td>[[${comment.comment_content}]]</td>
+          </tr>
+        </th:block>
+      </th:block>
+      </tbody>
+    </table>
+  </div>
 </div>
 
 </body>

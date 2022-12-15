@@ -52,6 +52,7 @@ public class UserController {
   @RequestMapping("/user/check")
   public String UserCheck(String user_email, String user_password, HttpSession session){
     try {
+
       System.out.println(user_email + user_password);
       List<User> user_info = service.findAll();
       for(int i = 0; i < user_info.size(); i++){
@@ -101,5 +102,41 @@ public class UserController {
       ra.addFlashAttribute("message", e.getMessage());
     }
     return "redirect:/users";
+  }
+
+  @GetMapping("/user/personal/{id}")
+  public String showEditPersonal(@PathVariable("id") Integer id, Model model, RedirectAttributes ra) {
+    try {
+      User user = service.get(id);
+      model.addAttribute("user", user);
+      model.addAttribute("pageTitle", "Edit User (ID: " + id + ")");
+
+      return "personal_index";
+    } catch (UserNotFoundException e) {
+      ra.addFlashAttribute("message", e.getMessage());
+      return "redirect:/";
+    }
+  }
+
+  @GetMapping("/user/personal/edit/{id}")
+  public String showPersonalEditForm(@PathVariable("id") Integer id, Model model, RedirectAttributes ra) {
+    try {
+      User user = service.get(id);
+      model.addAttribute("user", user);
+      model.addAttribute("pageTitle", "Edit User (ID: " + id + ")");
+
+      return "personal_edit";
+    } catch (UserNotFoundException e) {
+      ra.addFlashAttribute("message", e.getMessage());
+      return "redirect:/";
+    }
+  }
+
+  @PostMapping("/user/personal/save")
+  public String savePersonalUser(User user, RedirectAttributes ra,HttpSession session) {
+    service.save(user);
+    session.setAttribute("Usersession",user);
+    ra.addFlashAttribute("message", "The user has been saved successfully.");
+    return "redirect:/user/personal/" + user.getId();
   }
 }

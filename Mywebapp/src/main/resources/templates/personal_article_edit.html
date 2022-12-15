@@ -9,7 +9,7 @@
 
 <body>
 <div class="container">
-  <form th:action="@{/article/save}" method="post" th:object="${article}">
+  <form th:action="@{/user/personal/article/save}" method="post" th:object="${article}">
     <input type="hidden" th:field="*{id}">
     <div class="vh-100 gradient-custom">
       <div class=" h-100">
@@ -18,7 +18,7 @@
             <div class="card bg-dark text-white" style="border-radius: 2rem;">
               <div class="card-body p-5 text-center">
                 <div class="mb-md-5 mt-md-4 pb-5">
-                  <h2 class="fw-bold mb-2">文章撰寫</h2>
+                  <h2 class="fw-bold mb-2">修改文章內容</h2>
 
                   <div class="mb-3">
                     <input type="hidden" th:field="*{user_id}" class="form-control"   placeholder="這裡到時候會自動讀取登入帳號的使用者" required minlength="1">
@@ -26,7 +26,7 @@
                   <br>
                   <div class="mb-3">
                     <label class="form-label">標題</label>
-                    <input type="text" th:field="*{article_title}" class="form-control" placeholder="請輸入標題" required minlength="1">
+                    <input type="text" th:field="*{article_title}" class="form-control" placeholder="請輸入標題" required minlength="2">
                   </div>
                   <br>
                   <div class="mb-3">

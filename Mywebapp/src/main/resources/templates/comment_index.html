@@ -20,7 +20,7 @@
       </thead>
       <tbody>
       <th:block th:each="comment: ${listComments}">
-        <th:block th:if="${(comment.article_id.id)} eq ${(getId.id)}">
+        <th:block th:if="${(comment.getArticle_id().getId()) eq getId}">
           <tr>
             <td>[[${comment.user_id.user_name}]]</td>
             <td>[[${comment.comment_content}]]</td>

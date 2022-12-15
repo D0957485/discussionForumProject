@@ -18,11 +18,11 @@ public class Comment {
     private String comment_content;
 
     @ManyToOne(cascade = CascadeType.ALL)
-    @JoinColumn(nullable = false,name = "user_id")
+    @JoinColumn(name = "user_id")
     private User user_id;
 
     @ManyToOne(cascade = CascadeType.ALL)
-    @JoinColumn(nullable = false, name = "article_id")
+    @JoinColumn( name = "article_id")
     private Article article_id;
 
 
