@@ -20,7 +20,7 @@ import javax.servlet.http.HttpSession;
 import java.util.List;
 
 @Controller
-@Service
+//@Service
 public class UserController {
   @Autowired
   private UserService service;
@@ -81,8 +81,15 @@ public class UserController {
   public String UserCheck(String user_email, String user_password, HttpSession session){
     try {
 
-      System.out.println(user_email + user_password);
-      List<User> user_info = service.findAll();
+      System.out.println(user_email + " " + user_password);
+
+      List<User> user_info = service.listAll();
+      System.out.println(user_info.size());
+
+      for(int i = 0; i < user_info.size(); i++){
+        System.out.println("user : " + user_info.get(i).getUser_email() + ";" + user_info.get(i).getUser_password());
+      }
+
       for(int i = 0; i < user_info.size(); i++){
         if(user_info.get(i).getUser_email().equals(user_email) && user_info.get(i).getUser_password().equals(user_password)){
           System.out.println("Login Successfully user : " + user_info.get(i).getUser_email());
@@ -90,6 +97,7 @@ public class UserController {
           return "redirect:/" + user_info.get(i).getId();
         }
       }
+
     }catch (Exception e){
       System.out.println("User Not Found");
     }

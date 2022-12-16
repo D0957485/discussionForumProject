@@ -1,10 +1,12 @@
 package com.mycompany.user;
 
 import com.mycompany.article.Article;
+import org.springframework.stereotype.Component;
 
 import javax.persistence.*;
 
 @SuppressWarnings("ALL")
+@Component
 @Entity
 @Table(name = "user",uniqueConstraints = @UniqueConstraint(columnNames = {"user_email"}))
 public class User {
@@ -26,9 +28,9 @@ public class User {
   }
 
   public User(String nickName, String account, String password) {
-    this.nickName = nickName;
-    this.account = account;
-    this.password = password;
+    this.user_name = nickName;
+    this.user_email = account;
+    this.user_password = password;
   }
 
   public Integer getId() {
