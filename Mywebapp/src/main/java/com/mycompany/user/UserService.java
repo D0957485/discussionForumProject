@@ -2,11 +2,10 @@ package com.mycompany.user;
 
 
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.expression.spel.ast.NullLiteral;
 import org.springframework.stereotype.Service;
 
+import java.util.ArrayList;
 import java.util.List;
-import java.util.Objects;
 import java.util.Optional;
 
 @Service
@@ -17,23 +16,12 @@ public class UserService {
   public List<User> listAll() {
     return (List<User>) repo.findAll();
   }
-
-  public User loginUser(User checkUser) throws UserNotFoundException {
-
-    Long count = repo.countByAccount(checkUser.getAccount());
-    if (count == 0 || count == null) {
-      throw new UserNotFoundException("Could not find any users with Account " + checkUser.getAccount());
-    }
-    User hold = repo.findByAccount(checkUser.getAccount());
-    if(Objects.equals(checkUser.getPassword(), hold.getPassword())) {
-
-      return hold;
-
-    } else {
-      throw new UserNotFoundException("Password is not correct");
-    }
+  public List<User> findAll(){
+    var user_info = repo.findAll();
+    var users = new ArrayList<User>();
+    user_info.forEach(e ->users.add(e));
+    return users;
   }
-
   public void save(User user) {
     repo.save(user);
   }

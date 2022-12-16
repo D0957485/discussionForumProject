@@ -9,7 +9,7 @@
 </head>
 <body>
 <div class="container">
-    <form th:action="@{/articles/save}" method="post" th:object="${article}">
+    <form th:action="@{'/comment/save/' + ${comment.getArticle_id().getId()} }" method="post" th:object="${comment}">
         <input type="hidden" th:field="*{id}">
         <div class="vh-100 gradient-custom">
             <div class=" h-100">
@@ -18,21 +18,21 @@
                         <div class="card bg-dark text-white" style="border-radius: 2rem;">
                             <div class="card-body p-5 text-center">
                                 <div class="mb-md-5 mt-md-4 pb-5">
-                                    <h2 class="fw-bold mb-2">文章撰寫</h2>
+                                    <h2 class="fw-bold mb-2">回覆</h2>
 
                                     <div class="mb-3">
-                                        <label class="form-label">建立者</label>
-                                        <input type="text" th:field="*{createAccount}" class="form-control"  placeholder="這裡到時候會自動讀取登入帳號的使用者" required minlength="1">
+                                        <!--<label class="form-label">回覆者id</label>-->
+                                        <input type="hidden" th:field="*{user_id}" class="form-control"  placeholder="這裡到時候會自動讀取登入帳號的使用者" required minlength="1">
                                     </div>
                                     <br>
                                     <div class="mb-3">
-                                        <label class="form-label">標題</label>
-                                        <input type="text" th:field="*{title}" class="form-control" placeholder="請輸入標題" required minlength="1">
+                                        <!--<label class="form-label">對應文章id</label>-->
+                                        <input type="hidden" th:field="*{article_id}" class="form-control" placeholder="對應文章id" required minlength="1">
                                     </div>
                                     <br>
                                     <div class="mb-3">
-                                        <label class="form-label">內容</label>
-                                        <textarea class="form-control" th:field="*{content}" placeholder="請輸入內容" rows="5"></textarea>
+                                        <label class="form-label">回覆內容</label>
+                                        <textarea class="form-control" th:field="*{comment_content}" placeholder="請輸入內容" rows="5"></textarea>
                                     </div>
                                     <br>
                                     <div class="d-flex justify-content-around">

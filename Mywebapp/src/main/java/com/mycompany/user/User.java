@@ -1,23 +1,25 @@
 package com.mycompany.user;
 
+import com.mycompany.article.Article;
+
 import javax.persistence.*;
 
 @SuppressWarnings("ALL")
 @Entity
-@Table(name = "users_test")
+@Table(name = "user",uniqueConstraints = @UniqueConstraint(columnNames = {"user_email"}))
 public class User {
   @Id
   @GeneratedValue(strategy = GenerationType.IDENTITY)
   private Integer id;
 
-  @Column(length = 45, nullable = false, name = "nickName")
-  private String nickName;
+  @Column(length = 20, nullable = false, name = "user_name")
+  private String user_name;
 
-  @Column(length = 45, nullable = false, name = "account")
-  private String account;
+  @Column(length = 20, nullable = false, name = "user_email",unique = true)
+  private String user_email;
 
-  @Column(length = 45, nullable = false, name = "password")
-  private String password;
+  @Column(length = 20, nullable = false, name = "user_password")
+  private String user_password;
 
   public User() {
 
@@ -37,28 +39,28 @@ public class User {
     this.id = id;
   }
 
-  public String getNickName() {
-    return nickName;
+  public String getUser_name() {
+    return user_name;
   }
 
-  public void setNickName(String nickName) {
-    this.nickName = nickName;
+  public void setUser_name(String user_name) {
+    this.user_name = user_name;
   }
 
-  public String getAccount() {
-    return account;
+  public String getUser_email() {
+    return user_email;
   }
 
-  public void setAccount(String account) {
-    this.account = account;
+  public void setUser_email(String user_email) {
+    this.user_email = user_email;
   }
 
-  public String getPassword() {
-    return password;
+  public String getUser_password() {
+    return user_password;
   }
 
-  public void setPassword(String password) {
-    this.password = password;
+  public void setUser_password(String user_password) {
+    this.user_password = user_password;
   }
 
   @Override
@@ -66,8 +68,7 @@ public class User {
     return "User{" +
             "id=" + getId() +
 
-            ", nickName='" + getNickName() + '\'' +
+            ", userName='" + getUser_name() + '\'' +
             '}';
   }
-
 }
