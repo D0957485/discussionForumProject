@@ -61,24 +61,39 @@ public class CommentController {
         ra.addFlashAttribute("message", "The user has been saved successfully.");
         return "redirect:/article/" + id;
     }
-    @GetMapping("/comment/edit/{id}")
-    public String showEditForm(@PathVariable("id") Integer id, Model model, RedirectAttributes ra) {
-        try {
-            Comment comment = service.get(id);
-            model.addAttribute("comment", comment);
 
-            return "comment_add";
+    @GetMapping("/comment/delete/{id}")
+    public String rootDeleteComment(@PathVariable("id") Integer id, RedirectAttributes ra) {
+        try {
+            List<Comment> commentList = service.listAll();
+            for (int i = 0; i < commentList.size(); i++) {
+                if (commentList.get(i).getId().equals(id)) {
+                    commentList.get(i).setArticle_id(null);
+                    commentList.get(i).setUser_id(null);
+                    service.save(commentList.get(i));
+                    break;
+                }
+            }
+            service.delete(id);
+            ra.addFlashAttribute("message", "The user id" + id + "has been deleted");
+            return "redirect:/comments";
         } catch (CommentNotFoundException e) {
             ra.addFlashAttribute("message", e.getMessage());
-            return "redirect:/articlesIndex";
         }
+        return "redirect:/comments";
     }
-
-    @GetMapping("/user/personal/delete/{id}/{userId}")
+    @GetMapping("/user/personal/comment/delete/{id}/{userId}")
     public String deleteComment(@PathVariable("id") Integer id,@PathVariable("userId") Integer userId, RedirectAttributes ra) {
         try {
-            System.out.println(service.get(id).getId());
-            System.out.println(service.get(id).getComment_content());
+            List<Comment> commentList = service.listAll();
+            for (int i = 0; i < commentList.size(); i++) {
+                if (commentList.get(i).getId().equals(id)) {
+                    commentList.get(i).setArticle_id(null);
+                    commentList.get(i).setUser_id(null);
+                    service.save(commentList.get(i));
+                    break;
+                }
+            }
             service.delete(id);
             ra.addFlashAttribute("message", "The user id" + id + "has been deleted");
             return "redirect:/user/personal/comment/" + userId;
@@ -88,21 +103,13 @@ public class CommentController {
         return "redirect:/comments";
     }
 
-
     @GetMapping("commentReply")
     public String showReplyArticleList(Model model) {
         List<Comment> listComments = service.listAll();
         model.addAttribute("listComments", listComments);
         return "comment_index";
     }
-    @GetMapping("/article/comment/{id}")
-    public String showContent(@PathVariable("id") Integer id, Model model, RedirectAttributes ra) {
-        List<Comment> listComments = service.listAll();
 
-        model.addAttribute("listComments", listComments);
-        model.addAttribute("getId", id);
-        return "comment_index";
-    }
 
     @GetMapping("/user/personal/comment/{id}")
     public String showPersonalArticle(@PathVariable("id") Integer id, Model model, RedirectAttributes ra, HttpSession session) {

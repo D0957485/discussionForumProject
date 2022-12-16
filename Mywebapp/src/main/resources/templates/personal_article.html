@@ -41,15 +41,13 @@
             <td>[[${article.id}]]</td>
 
             <td>[[${article.article_title}]]</td>
-
             <td>[[${article.article_content}]]</td>
-
             <td>
               <a class="h4 mr-3" th:href="@{'/user/personal/article/edit/'+ ${article.id}}">Edit</a>
+              <a class="h4 mr-3" th:href="@{'/user/personal/article/delete/'+ ${article.id} + '/' + ${article.getUser_id().getId()}}">Delete</a>
             </td>
           </tr>
         </th:block>
-
       </th:block>
       </tbody>
     </table>

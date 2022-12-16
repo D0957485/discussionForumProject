@@ -30,8 +30,7 @@
           <td>[[${comment.comment_content}]]</td>
           <td>[[${comment.article_id}]]</td>
           <td>
-            <a class="h4 mr-3" th:href="@{'/comment/edit/'+ ${comment.id}}">Edit</a>
-            <a class="h4" th:href="@{'/comment/delete/'+ ${comment.id}}">Delete</a>
+            <a class="h4" th:href="@{'/comment/delete/'+ ${comment.getId()}}">Delete</a>
           </td>
         </tr>
       </th:block>

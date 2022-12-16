@@ -1,5 +1,11 @@
 package com.mycompany.user;
 
+import com.mycompany.article.Article;
+import com.mycompany.article.ArticleNotFoundException;
+import com.mycompany.article.ArticleService;
+import com.mycompany.comment.Comment;
+import com.mycompany.comment.CommentNotFoundException;
+import com.mycompany.comment.CommentService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.stereotype.Service;
@@ -19,6 +25,11 @@ public class UserController {
   @Autowired
   private UserService service;
 
+  @Autowired
+  private ArticleService articleService;
+
+  @Autowired
+  private CommentService commentService;
 
   @GetMapping("/users")  /* the url you want to show */
   public String showUserList(Model model) {
@@ -110,16 +121,16 @@ public class UserController {
     }
   }
 
-  @GetMapping("/user/delete/{id}")
-  public String deleteUser(@PathVariable("id") Integer id, RedirectAttributes ra) {
-    try {
-      service.delete(id);
-      ra.addFlashAttribute("message", "The user id" + id + "has been deleted");
-    } catch (UserNotFoundException e) {
-      ra.addFlashAttribute("message", e.getMessage());
-    }
-    return "redirect:/users";
-  }
+//  @GetMapping("/user/delete/{id}")
+//  public String deleteUser(@PathVariable("id") Integer id, RedirectAttributes ra) {
+//    try {
+//      service.delete(id);
+//      ra.addFlashAttribute("message", "The user id" + id + "has been deleted");
+//    } catch (UserNotFoundException e) {
+//      ra.addFlashAttribute("message", e.getMessage());
+//    }
+//    return "redirect:/users";
+//  }
 
   @GetMapping("/user/personal/{id}")
   public String showEditPersonal(@PathVariable("id") Integer id, Model model, RedirectAttributes ra) {
@@ -155,5 +166,42 @@ public class UserController {
     session.setAttribute("Usersession",user);
     ra.addFlashAttribute("message", "The user has been saved successfully.");
     return "redirect:/user/personal/" + user.getId();
+  }
+  @GetMapping("/user/delete/{id}")
+  public String rootDeletePersonalComment(@PathVariable("id") Integer id, RedirectAttributes ra) {
+
+    try {
+      try {
+        //刪除User所有發的文
+        List<Article> articleList = articleService.listAll();
+        for (int i=0; i < articleList.size(); i++) {
+          if (articleList.get(i).getUser_id().getId().equals(id)) {
+            try {
+              // 刪除Article 裡面的所有回覆
+              List<Comment> commentList = commentService.listAll();
+              for (int j = 0; j < commentList.size(); j++) {
+                if (commentList.get(j).getArticle_id().getId().equals(i)) {
+                  commentList.get(j).setArticle_id(null);
+                  commentList.get(j).setUser_id(null);
+                  commentService.save(commentList.get(j));
+                  commentService.delete(commentList.get(j).getId());
+                }
+              }
+            }catch (CommentNotFoundException e) {
+              ra.addFlashAttribute("message", e.getMessage());
+            }
+            articleList.get(i).setUser_id(null);
+            articleService.save(articleList.get(i));
+            articleService.delete(articleList.get(i).getId());
+          }
+        }
+      }catch (ArticleNotFoundException e) {
+        ra.addFlashAttribute("message", e.getMessage());
+      }
+      service.delete(id);
+    }catch (UserNotFoundException e) {
+      ra.addFlashAttribute("message", e.getMessage());
+    }
+    return "redirect:/users";
   }
 }

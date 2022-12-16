@@ -1,6 +1,7 @@
 package com.mycompany.article;
 
 import com.mycompany.comment.Comment;
+import com.mycompany.comment.CommentNotFoundException;
 import com.mycompany.comment.CommentService;
 import com.mycompany.user.User;
 import com.mycompany.user.UserNotFoundException;
@@ -44,6 +45,7 @@ public class ArticleController {
 
     @GetMapping("/article/add/{id}")
     public String showNewFrom(@PathVariable("id") Integer id,Model model, RedirectAttributes ra) {
+
         Article ar = new Article();
         List<User> users = userService.listAll();
         for(int i = 0; i < users.size(); i++) {
@@ -56,24 +58,16 @@ public class ArticleController {
         }
         return "articles_index";
     }
-//    @GetMapping("/article/add/{id}/{email}/{name}/{password}")
-//    public String showNewFrom(@PathVariable("id") Integer id,@PathVariable("email") String email,@PathVariable("name") String name,@PathVariable("password") String password,Model model, RedirectAttributes ra,Article article) {
-//        Article ar = new Article();
-//        User u = new User();
-//        u.setId(id);
-//        u.setUser_name(name);
-//        u.setUser_email(email);
-//        u.setUser_password(password);
-//        ar.setUser_id(u);
-//        model.addAttribute("article", ar);
-//        model.addAttribute("pageTitle", "Add New User");
-//        return "article_add";
-//    }
 
-    @PostMapping("/article/save")
-    public String saveUser(Article article, RedirectAttributes ra) {
-        service.save(article);
-        ra.addFlashAttribute("message", "The user has been saved successfully.");
+    @PostMapping("/article/save/{id}")
+    public String saveUser(@PathVariable("id") Integer id,Article article, RedirectAttributes ra) {
+        try {
+            service.save(article);
+            ra.addFlashAttribute("message", "The user has been saved successfully.");
+        }catch (Exception e) {
+            System.out.println("Title has been appear");
+            return "redirect:/article/add/" + id;
+        }
         return "redirect:/articlesIndex";
     }
 
@@ -91,11 +85,31 @@ public class ArticleController {
     }
 
     @GetMapping("/article/delete/{id}")
-    public String deleteUser(@PathVariable("id") Integer id, RedirectAttributes ra) {
+    public String rootDeletePersonalComment(@PathVariable("id") Integer id, RedirectAttributes ra) {
         try {
+            try {
+                List<Comment> commentList = commentService.listAll();
+                for (int i = 0; i < commentList.size(); i++) {
+                    if(commentList.get(i).getArticle_id().getId().equals(id)) {
+                        commentList.get(i).setArticle_id(null);
+                        commentList.get(i).setUser_id(null);
+                        commentService.save(commentList.get(i));
+                        commentService.delete(commentList.get(i).getId());
+                    }
+                }
+            }catch (CommentNotFoundException e) {
+                ra.addFlashAttribute("message", e.getMessage());
+            }
+            List<Article> articleList = service.listAll();
+            for (int i=0; i < articleList.size(); i++) {
+                if (articleList.get(i).getId().equals(id)) {
+                    articleList.get(i).setUser_id(null);
+                    service.save(articleList.get(i));
+                    break;
+                }
+            }
             service.delete(id);
-            ra.addFlashAttribute("message", "The user id" + id + "has been deleted");
-        } catch (ArticleNotFoundException e) {
+        }catch (ArticleNotFoundException e) {
             ra.addFlashAttribute("message", e.getMessage());
         }
         return "redirect:/articles";
@@ -123,6 +137,7 @@ public class ArticleController {
         model.addAttribute("listArticles",listArticles);
         return "personal_article";
     }
+
     @GetMapping("/user/personal/article/edit/{id}")
     public String showPersonalEditForm(@PathVariable("id") Integer id, Model model, RedirectAttributes ra) {
         try {
@@ -136,6 +151,38 @@ public class ArticleController {
             return "redirect:/";
         }
     }
+
+    @GetMapping("/user/personal/article/delete/{id}/{userId}")
+    public String deletePersonalComment(@PathVariable("id") Integer id,@PathVariable("userId") Integer userId, RedirectAttributes ra) {
+        try {
+            try {
+                List<Comment> commentList = commentService.listAll();
+                for (int i = 0; i < commentList.size(); i++) {
+                    if(commentList.get(i).getArticle_id().getId().equals(id)) {
+                        commentList.get(i).setArticle_id(null);
+                        commentList.get(i).setUser_id(null);
+                        commentService.save(commentList.get(i));
+                        commentService.delete(commentList.get(i).getId());
+                    }
+                }
+            }catch (CommentNotFoundException e) {
+                ra.addFlashAttribute("message", e.getMessage());
+            }
+            List<Article> articleList = service.listAll();
+            for (int i=0; i < articleList.size(); i++) {
+                if (articleList.get(i).getId().equals(id)) {
+                    articleList.get(i).setUser_id(null);
+                    service.save(articleList.get(i));
+                    break;
+                }
+            }
+            service.delete(id);
+        }catch (ArticleNotFoundException e) {
+            ra.addFlashAttribute("message", e.getMessage());
+        }
+        return "redirect:/user/personal/article/" + userId;
+    }
+
     @PostMapping("/user/personal/article/save")
     public String savePersonalArticle(Article article, RedirectAttributes ra) {
         service.save(article);

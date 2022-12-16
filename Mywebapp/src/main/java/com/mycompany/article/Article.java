@@ -21,7 +21,7 @@ public class Article {
 
 
   @ManyToOne(cascade = CascadeType.ALL)
-  @JoinColumn(nullable = false,name = "user_id")
+  @JoinColumn(name = "user_id")
   private User user_id;
 
   public Integer getId() {
