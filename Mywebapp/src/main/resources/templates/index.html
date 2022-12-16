@@ -1,6 +1,7 @@
 <!DOCTYPE html>
 <html lang="en" xmlns:th="http://www.thymeleaf.org">
 <head>
+  <link href="../style.css" rel="stylesheet" >
   <meta name="viewport" content="width=device-width, initial-scale=1">
   <meta charset="UTF-8">
   <title>首頁</title>
@@ -44,37 +45,40 @@
       </nav>
     </div>
   </div>
-  <div id="carouselExampleInterval" class="carousel slide bg-dark" data-bs-ride="carousel">
-    <div class="carousel-indicators">
-      <button type="button" data-bs-target="#carouselExampleIndicators" data-bs-slide-to="0" class="active" aria-current="true" aria-label="Slide 1"></button>
-      <button type="button" data-bs-target="#carouselExampleIndicators" data-bs-slide-to="1" aria-label="Slide 2"></button>
-      <button type="button" data-bs-target="#carouselExampleIndicators" data-bs-slide-to="2" aria-label="Slide 3"></button>
+  <div class="carouselcss">     <!--<將carousel(投影片)放入css>-->
+    <div id="carouselExampleInterval" class="carousel slide bg-dark" data-bs-ride="carousel">
+      <div class="carousel-indicators">
+        <button type="button" data-bs-target="#carouselExampleIndicators" data-bs-slide-to="0" class="active" aria-current="true" aria-label="Slide 1"></button>
+        <button type="button" data-bs-target="#carouselExampleIndicators" data-bs-slide-to="1" aria-label="Slide 2"></button>
+        <button type="button" data-bs-target="#carouselExampleIndicators" data-bs-slide-to="2" aria-label="Slide 3"></button>
+      </div>
+      <div class="carousel-inner">
+        <div class="carousel-item active" data-bs-interval="2000">
+          <div class="carousel-caption d-none d-md-block">
+            <img type="button" onclick="location.href='https://www.youtube.com/watch?v=dQw4w9WgXcQ'" src="img/Adelaide.jpg" class="d-block w-100" alt="..."><!--你是img又是buttom-->
+            <h5>！本日頭條！"阿德學長回來了"</h5>
+          </div>
+        </div>
+        <div class="carousel-item" data-bs-interval="3000">
+          <div class="carousel-caption d-none d-md-block">
+            <h5>Third slide label</h5>
+          </div>
+        </div>
+        <div class="carousel-item">
+          <div class="carousel-caption d-none d-md-block">
+            <h5>Third slide label</h5>
+          </div>
+        </div>
+      </div>
+      <button class="carousel-control-prev" type="button" data-bs-target="#carouselExampleInterval" data-bs-slide="prev">
+        <span class="carousel-control-prev-icon" aria-hidden="true"></span>
+        <span class="visually-hidden">Previous</span>
+      </button>
+      <button class="carousel-control-next" type="button" data-bs-target="#carouselExampleInterval" data-bs-slide="next">
+        <span class="carousel-control-next-icon" aria-hidden="true"></span>
+        <span class="visually-hidden">Next</span>
+      </button>
     </div>
-    <div class="carousel-inner">
-      <div class="carousel-item active" data-bs-interval="2000">
-        <div class="carousel-caption d-none d-md-block">
-          <h5>Third slide label</h5>
-        </div>
-      </div>
-      <div class="carousel-item" data-bs-interval="3000">
-        <div class="carousel-caption d-none d-md-block">
-          <h5>Third slide label</h5>
-        </div>
-      </div>
-      <div class="carousel-item">
-        <div class="carousel-caption d-none d-md-block">
-          <h5>Third slide label</h5>
-        </div>
-      </div>
-    </div>
-    <button class="carousel-control-prev" type="button" data-bs-target="#carouselExampleInterval" data-bs-slide="prev">
-      <span class="carousel-control-prev-icon" aria-hidden="true"></span>
-      <span class="visually-hidden">Previous</span>
-    </button>
-    <button class="carousel-control-next" type="button" data-bs-target="#carouselExampleInterval" data-bs-slide="next">
-      <span class="carousel-control-next-icon" aria-hidden="true"></span>
-      <span class="visually-hidden">Next</span>
-    </button>
   </div>
 </body>
 </html>

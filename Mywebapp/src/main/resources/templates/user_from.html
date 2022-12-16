@@ -1,6 +1,7 @@
 <!DOCTYPE html>
 <html lang="en" xmlns:th="http://www.thymeleaf.org">
 <head>
+    <link href="../style.css" rel="stylesheet" >
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1">
     <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.2.3/dist/css/bootstrap.min.css" rel="stylesheet">
@@ -10,7 +11,7 @@
 <div class="container">
     <form th:action="@{/users/save}" method="post" th:object="${user}">
         <input type="hidden" th:field="*{id}">
-        <div class="vh-100 gradient-custom bg-light">
+        <div class="vh-100 gradient-custom bg"><!--這裡有修改-->
             <div class=" h-100">
                 <div class="row d-flex justify-content-center align-items-center h-100">
                     <div class="col-12 col-md-8 ">
@@ -26,7 +27,7 @@
                                         <input type="text" th:field="*{account}" placeholder="Account" class="form-control form-control-lg" required minlength="2" maxlength="45"/>
                                     </div>
                                     <div class="form-outline mb-4">
-                                        <input type="text" th:field="*{password}" placeholder="Password" class="form-control form-control-lg" required minlength="2" maxlength="45"/>
+                                        <input type="password" th:field="*{password}" placeholder="Password" class="form-control form-control-lg" required minlength="2" maxlength="45"/>
                                     </div>
 
                                     <div class="d-flex justify-content-around">

@@ -1,0 +1,48 @@
+/*index標籤*/
+body{
+    background: url("https://img.onl/a0G2Q9") center;/*背景圖片*/
+    background-size: 150% auto;
+    background-repeat: no-repeat;
+}
+li:hover{/*當鼠標放在按鈕(li)時，按鈕(li)的變動*/
+    background-color: #0000ff3f;
+    box-shadow: 1px 1px 1px rgba(0, 0, 0, 0.225);
+}
+h5{
+    background-color: #0000ff21;
+}
+div button{
+    background-color: #ff7b00de;
+}
+
+/*index.class*/
+.carousel-inner{
+    background: url("img/ina.jpg") center;/*背景圖片*/
+    background-size: 10% auto;
+    background-repeat: no-repeat;
+}
+
+.carouselcss{
+    width: 100%;
+    height: 200%;
+}
+
+/*article_index & acticle標籤*/
+tr:hover{/*當鼠標放在標籤(tr)時，標籤(tr)的變動*/
+    background-color: rgb(255,255,221);
+}
+
+
+/*article_index & acticle的class*/
+.h3{
+    background-color: rgb(234, 241, 226); 
+    border-style:outset;
+}
+.article_index_css{
+    margin-top:5px;
+    margin-left:auto;
+    margin-right:auto;
+    margin-bottom:auto;
+//  border: 1px solid 000000;
+    background-color: rgb(234, 241, 226);
+}
