@@ -1,0 +1,57 @@
+<!DOCTYPE html>
+<html lang="en" xmlns:th="http://www.thymeleaf.org">
+<head>
+  <meta charset="UTF-8">
+  <title>Manage Articles</title>
+  <link rel="stylesheet" th:href="@{/webjars/bootstrap/css/bootstrap.min.css}" type="text/css"/>
+
+</head>
+<body>
+<div class="container-fluid text-center">
+
+  <div class=".container bg-info">
+    <div class="navbar-brand" href="#">管理回覆內容</div>
+    <div class="d-flex justify-content-around">
+      <nav class="navbar navbar-expand">
+        <div class="collapse navbar-collapse mx-2">
+          <ul class="nav navbar-nav">
+            <li class="nav-item"><a class="nav-link text-white" th:href="@{'/user/personal/' + ${session.Usersession.getId()}}">個人首頁</a></li>
+          </ul>
+        </div>
+      </nav>
+    </div>
+  </div>
+  <div class="alert-success text-center" th:if="${message}"></div>
+  <div>
+    <table class="table table-bordered">
+      <thead class="thead-dark">
+      <tr>
+        <th>文章編號</th>
+        <th>文章標題</th>
+        <th>文章內容</th>
+        <th>回覆的內容</th>
+        <th></th>
+      </tr>
+      </thead>
+      <tbody>
+      <th:block th:each="comment: ${listComments}">
+        <th:block th:if="${comment.getUser_id().getId()} eq ${userId}">
+          <tr>
+            <td>[[${comment.article_id.id}]]</td>
+            <td>[[${comment.article_id.article_title}]]</td>
+            <td>[[${comment.article_id.article_content}]]</td>
+            <td>[[${comment.comment_content}]]</td>
+            <td>
+              <a class="h4 mr-3" th:href="@{'/user/personal/comment/edit/'+ ${comment.id}}">Edit</a>
+              <a class="h4 mr-3" th:href="@{'/user/personal/comment/delete/'+ ${comment.id} + '/' + ${comment.getUser_id().getId()}}">Delete</a>
+            </td>
+          </tr>
+        </th:block>
+
+      </th:block>
+      </tbody>
+    </table>
+  </div>
+</div>
+</body>
+</html>
