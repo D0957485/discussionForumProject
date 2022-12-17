@@ -1,0 +1,60 @@
+/**//*所有頁面*//**/
+/*background*/
+body{
+    background: url("https://i.imgur.com/xfYpEUi.jpg") center;/*背景圖片*/
+    background-size: 150% auto;
+    background-repeat: no-repeat;
+}
+
+/**//*index*//**/
+/*標籤*/
+ul li:hover{/*當鼠標放在按鈕(li)時，按鈕(li)的變動*/
+    background-color: #0000ff3f;
+    border-block-start-width: 0cm;
+    box-shadow: 1px 1px 1px rgba(0, 0, 0, 0.225);
+}
+
+h5{
+    background-color: #0000ff21;
+}
+div button{
+    background-color: #ff7b00de;
+}
+/*class*/
+.carousel-inner{
+    background: url("https://i.imgur.com/LATgkbE.jpg") center;/*背景圖片*/
+    background-size: 10% auto;
+    background-repeat: no-repeat;
+}
+
+.carouselcss{
+    width: 100%;
+    height: 200%;
+}
+
+/**//*article_index & acticle*//**/
+/*標籤*/
+tr:hover{/*當鼠標放在標籤(tr)時，標籤(tr)的變動*/
+    background-color: rgb(255,255,221);
+}
+/*class*/
+.article_buttom{
+    background-color: rgb(234, 241, 226);
+    border-style:outset;
+}
+.h3{
+    background-color: rgb(234, 241, 226);
+    border-style:outset;
+}
+.article_index_css{
+    margin-top:5px;
+    margin-left:auto;
+    margin-right:auto;
+    margin-bottom:auto;
+    border: 1px solid 000000;
+    background-color: rgb(234, 241, 226);
+}
+.page_title{
+    background-color: #0000ff21;
+    color:white;
+}
