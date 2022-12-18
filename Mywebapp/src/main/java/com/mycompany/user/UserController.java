@@ -30,6 +30,7 @@ public class UserController {
 
   @Autowired
   private CommentService commentService;
+  private ArticleService ArticleService;
 
   @GetMapping("/users")  /* the url you want to show */
   public String showUserList(Model model) {
@@ -121,16 +122,6 @@ public class UserController {
     }
   }
 
-//  @GetMapping("/user/delete/{id}")
-//  public String deleteUser(@PathVariable("id") Integer id, RedirectAttributes ra) {
-//    try {
-//      service.delete(id);
-//      ra.addFlashAttribute("message", "The user id" + id + "has been deleted");
-//    } catch (UserNotFoundException e) {
-//      ra.addFlashAttribute("message", e.getMessage());
-//    }
-//    return "redirect:/users";
-//  }
 
   @GetMapping("/user/personal/{id}")
   public String showEditPersonal(@PathVariable("id") Integer id, Model model, RedirectAttributes ra) {
@@ -169,38 +160,41 @@ public class UserController {
   }
   @GetMapping("/user/delete/{id}")
   public String rootDeletePersonalComment(@PathVariable("id") Integer id, RedirectAttributes ra) {
-
     try {
-      try {
-        //刪除User所有發的文
-        List<Article> articleList = articleService.listAll();
-        for (int i=0; i < articleList.size(); i++) {
-          if (articleList.get(i).getUser_id().getId().equals(id)) {
-            try {
-              // 刪除Article 裡面的所有回覆
-              List<Comment> commentList = commentService.listAll();
-              for (int j = 0; j < commentList.size(); j++) {
-                if (commentList.get(j).getArticle_id().getId().equals(i)) {
-                  commentList.get(j).setArticle_id(null);
-                  commentList.get(j).setUser_id(null);
-                  commentService.save(commentList.get(j));
-                  commentService.delete(commentList.get(j).getId());
-                }
-              }
-            }catch (CommentNotFoundException e) {
-              ra.addFlashAttribute("message", e.getMessage());
-            }
-            articleList.get(i).setUser_id(null);
-            articleService.save(articleList.get(i));
-            articleService.delete(articleList.get(i).getId());
-          }
+      List<Comment> commentList = commentService.listAll();
+      for (int i = 0; i < commentList.size(); i++) {
+        if (commentList.get(i).getUser_id().getId().equals(id)) {
+          commentList.get(i).setUser_id(null);
+          commentList.get(i).setArticle_id(null);
+          commentService.save(commentList.get(i));
+          commentService.delete(commentList.get(i).getId());
         }
-      }catch (ArticleNotFoundException e) {
-        ra.addFlashAttribute("message", e.getMessage());
       }
-      service.delete(id);
+    } catch (CommentNotFoundException e) {
+      ra.addFlashAttribute("message", "The user has been saved successfully.");
+    }
+    try {
+      List<Article> articleList = articleService.listAll();
+      for (int i=0; i<articleList.size(); i++) {
+        if (articleList.get(i).getUser_id().equals(id)) {
+          articleList.get(i).setUser_id(null);
+          articleService.save(articleList.get(i));
+          articleService.delete(articleList.get(i).getId());
+        }
+      }
+    }catch (ArticleNotFoundException e) {
+      ra.addFlashAttribute("message", "The user has been saved successfully.");
+    }
+    try {
+      List<User> userList = service.listAll();
+      for (int i=0; i<userList.size();i++) {
+        if(userList.get(i).getId().equals(id)) {
+          service.delete(id);
+          break;
+        }
+      }
     }catch (UserNotFoundException e) {
-      ra.addFlashAttribute("message", e.getMessage());
+      ra.addFlashAttribute("message", "The user has been saved successfully.");
     }
     return "redirect:/users";
   }
