@@ -160,6 +160,7 @@ public class UserController {
   }
   @GetMapping("/user/delete/{id}")
   public String rootDeletePersonalComment(@PathVariable("id") Integer id, RedirectAttributes ra) {
+    // 先刪除此id的所有評論
     try {
       List<Comment> commentList = commentService.listAll();
       for (int i = 0; i < commentList.size(); i++) {
@@ -173,10 +174,25 @@ public class UserController {
     } catch (CommentNotFoundException e) {
       ra.addFlashAttribute("message", "The user has been saved successfully.");
     }
+    // 刪除此id的所有文章
     try {
       List<Article> articleList = articleService.listAll();
       for (int i=0; i<articleList.size(); i++) {
-        if (articleList.get(i).getUser_id().equals(id)) {
+        if (articleList.get(i).getUser_id().getId().equals(id)) {
+          try {
+            //刪除這篇文章所有的評論
+            List<Comment> commentList = commentService.listAll();
+            for (int j=0; j< commentList.size(); j++) {
+              if (commentList.get(j).getArticle_id().getId().equals(articleList.get(i).getId())) {
+                commentList.get(j).setUser_id(null);
+                commentList.get(i).setArticle_id(null);
+                commentService.save(commentList.get(j));
+                commentService.delete(commentList.get(j).getId());
+              }
+            }
+          }catch (CommentNotFoundException e) {
+            ra.addFlashAttribute("message", "The user has been saved successfully.");
+          }
           articleList.get(i).setUser_id(null);
           articleService.save(articleList.get(i));
           articleService.delete(articleList.get(i).getId());
