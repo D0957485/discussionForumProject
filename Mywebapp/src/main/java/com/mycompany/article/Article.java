@@ -13,10 +13,10 @@ public class Article {
   @GeneratedValue(strategy = GenerationType.IDENTITY)
   private Integer id;
 
-  @Column(length = 45, nullable = false, name = "article_title")
+  @Column(length = 50, nullable = false, name = "article_title")
   private String article_title;
 
-  @Column(length = 2000, nullable = false, name = "article_content")
+  @Column(length = 3000, nullable = false, name = "article_content")
   private String article_content;
 
 

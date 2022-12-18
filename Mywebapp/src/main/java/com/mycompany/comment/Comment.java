@@ -14,7 +14,7 @@ public class Comment {
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Integer id;
 
-    @Column(length = 2000, nullable = false, name = "comment_content")
+    @Column(length = 1000, nullable = false, name = "comment_content")
     private String comment_content;
 
     @ManyToOne(cascade = CascadeType.ALL)
