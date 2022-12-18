@@ -1,0 +1,18 @@
+.logo {
+    width: 40px;
+    height: 40px;
+    padding-left: 12px;
+    padding-top: 12px;
+    padding-bottom: 12px;
+}
+
+.header {
+    display: flex;
+    background-color: rgba(0, 0, 0, 0.5);
+}
+
+.logo_word {
+    width : 250px;
+    height: 40px;
+    padding: 12px;
+}

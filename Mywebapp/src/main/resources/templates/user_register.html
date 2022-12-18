@@ -1,0 +1,46 @@
+<!DOCTYPE html>
+<html lang="en" xmlns:th="http://www.thymeleaf.org">
+<head>
+  <meta charset="UTF-8">
+  <link type="text/css" rel="stylesheet" href="/static/loginform.css">
+  <link type="text/css" rel="stylesheet" href="/static/index.css">
+</head>
+<body>
+<div class="header">
+  <div class="container">
+    <div class="navbar-expand-md navbar-dark">
+      <nav class="navbar navbar-dark bg-dark">
+        <a href="/"><img class="logo" src="/static/photo/LOGO-removebg-preview.png"></a>
+        <a href="/"><img class="logo_word" src="/static/photo/FCU_DISCUSSION__1_-removebg-preview.png" ></a>
+        <div class="login-box">
+          <h2>Register</h2>
+          <form th:action="@{/user/register}" method="post" th:object="${user}">
+            <div class="user-box">
+              <input type="text" name="user_name" required="" minlength="2" maxlength="45"/>
+              <label>UserName</label>
+            </div>
+            <div class="user-box">
+              <input type="text" name="user_email"required="" minlength="2" maxlength="45"/>
+              <label>UserEmail</label>
+            </div>
+            <div class="user-box">
+              <input type="text" name="user_password" required="" minlength="2" maxlength="45"/>
+              <label>Password</label>
+            </div>
+            <div>
+              <button type="submit" class="ui-button" >Save</button>
+              <button onclick="history.back()" type="button" class="ui-button" >Cancel</button>
+            </div>
+          </form>
+        </div>
+      </nav>
+    </div >
+  </div>
+</div>
+<script type="text/javascript">
+  function cancelForm() {
+    window.location="[[@{/}]]";
+  }
+</script>
+</body>
+</html>

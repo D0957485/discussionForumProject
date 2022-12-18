@@ -1,0 +1,53 @@
+<!DOCTYPE html>
+<html lang="en" xmlns:th="http://www.thymeleaf.org">
+<head>
+  <meta charset="UTF-8">
+  <link type="text/css" rel="stylesheet" href="/static/loginform.css">
+  <link type="text/css" rel="stylesheet" href="/static/index.css">
+</head>
+<body>
+
+<div class="header">
+  <div class="container">
+    <div class="navbar-expand-md navbar-dark">
+      <nav class="navbar navbar-dark bg-dark">
+        <a href="/"><img class="logo" src="/static/photo/LOGO-removebg-preview.png"></a>
+        <a href="/"><img class="logo_word" src="/static/photo/FCU_DISCUSSION__1_-removebg-preview.png" ></a>
+        <div class="login-box">
+          <h2>Login</h2>
+          <form th:action="@{/user/check}" method="post" th:object="${user}">
+            <div class="user-box">
+              <input type="text" name="user_email" required=""/>
+              <label>Email</label>
+            </div>
+            <div class="user-box">
+              <input type="text" name="user_password" required=""/>
+              <label>Password</label>
+            </div>
+            <a href="#">Forgot password?</a>
+            <br>
+            <br>
+            <div>
+              <button class="ui-button" type="submit" >Login In</button>
+              <button href="#" class="ui-button" onclick="history.back()" type="button" >Cancel</button>
+            </div>
+          </form>
+        </div>
+      </nav>
+    </div >
+  </div>
+</div>
+
+<script>
+  function loginSuccess(){
+    window.alert()
+  }
+</script>
+
+<script type="text/javascript">
+  function cancelForm() {
+    window.location="[[@{/}]]";
+  }
+</script>
+</body>
+</html>

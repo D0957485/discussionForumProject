@@ -1,0 +1,84 @@
+<!DOCTYPE html>
+<html lang="en" xmlns:th="http://www.thymeleaf.org">
+<head>
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <meta charset="UTF-8">
+  <title>首頁</title>
+  <meta charset="UTF-8">
+  <link type="text/css" rel="stylesheet" href="/static/loginform.css">
+  <link type="text/css" rel="stylesheet" href="/static/index.css">
+  <link type="text/css" rel="stylesheet" href="/static/navbar.css">
+</head>
+
+<body>
+<div class="header">
+  <div class="container">
+    <div class="navbar-expand-md navbar-dark">
+      <nav class="navbar navbar-dark bg-dark">
+        <div class="row">
+          <a href="/"><img class="logo" src="/static/photo/LOGO-removebg-preview.png"></a>
+          <a href="/"><img class="logo_word" src="/static/photo/FCU_DISCUSSION__1_-removebg-preview.png" ></a>
+          <a class="nav navbar-nav navbar-right" th:if = "${session.Usersession.getId() != null && session.Usersession.getId() != 1}" th:text=" '會員 : ' + ${session.Usersession.getUser_name()} + ' 你好'" ></a>
+          <a class="nava" th:if = "${session.Usersession.getId() != null && session.Usersession.getId() != 1}" th:text=" '會員 : ' + ${session.Usersession.getUser_name()} + ' 你好'" ></a>
+          <a class="nava" th:if = "${session.Usersession.getId() != null && session.Usersession.getId() == 1}" th:text=" '管理員 : ' + ${session.Usersession.getUser_name()} + ' 你好'" ></a></li>
+          <a class="nava" th:href="@{/articlesIndex}">文章頁面</a></li>
+          <a class="nava" th:if = "${session.Usersession.getId() == null}" th:href="@{/user/register}">Register</a>
+          <a class="nava" th:if = "${session.Usersession.getId() == null}" th:href="@{/user/login}">Login</a>
+          <a class="nava" th:if = "${session.Usersession.getId() != null}" th:href="@{/logout}" >Logout</a>
+          <a class="nava" th:if = "${session.Usersession.getId() != null && session.Usersession.getId() == 1}" th:href="@{/users}">管理會員</a>
+          <a class="nava" th:if = "${session.Usersession.getId() != null && session.Usersession.getId() == 1}" th:href="@{/articles}">管理文章</a>
+          <a class="nava" th:if = "${session.Usersession.getId() != null && session.Usersession.getId() == 1}" th:href="@{/comments}">管理回覆</a>
+          <a class="nav navbar-nav navbar-right" th:if = "${session.Usersession.getId() != null}" th:href="@{'/user/personal/' + ${session.Usersession.getId()}}">個人資訊管理</a>
+        </div>
+               <!-- <div class="collapse navbar-collapse mx-2">
+          <ul class="nav navbar-nav">
+
+            <li class="nav-item dropdown ">
+              <a href="#" class="nav-link dropdown-toggle text-white" data-bs-toggle="dropdown"  role="button">繁體中文</a>
+              <ul class="dropdown-menu">
+                <li><a class="dropdown-item" href="#">繁體中文</a></li>
+                <li><a class="dropdown-item" href="#">English</a></li>
+              </ul>
+            </li>
+          </ul>
+        </div>-->
+      </nav>
+    </div>
+  </div>
+</div>
+<div id="carouselExampleInterval" class="carousel slide bg-dark" data-bs-ride="carousel">
+  <div class="carousel-indicators">
+    <button type="button" data-bs-target="#carouselExampleIndicators" data-bs-slide-to="0" class="active" aria-current="true" aria-label="Slide 1"></button>
+    <button type="button" data-bs-target="#carouselExampleIndicators" data-bs-slide-to="1" aria-label="Slide 2"></button>
+    <button type="button" data-bs-target="#carouselExampleIndicators" data-bs-slide-to="2" aria-label="Slide 3"></button>
+  </div>
+  <div class="carousel-inner">
+    <div class="carousel-item active" data-bs-interval="2000">
+      <div class="carousel-caption d-none d-md-block">
+        <img type="button" onclick="location.href='https://www.youtube.com/watch?v=dQw4w9WgXcQ'" src="https://i.imgur.com/3sDr8Cg.jpg" class="d-block w-100" alt="..."><!--你是img又是buttom-->
+        <h5>！本日頭條！"阿德學長回來了"</h5>
+      </div>
+    </div>
+    <div class="carousel-item" data-bs-interval="3000">
+      <div class="carousel-caption d-none d-md-block">
+        <h5>請先登入</h5>
+      </div>
+    </div>
+    <div class="carousel-item">
+      <div class="carousel-caption d-none d-md-block">
+        <h5>在留言</h5>
+      </div>
+    </div>
+  </div>
+  <button class="carousel-control-prev" type="button" data-bs-target="#carouselExampleInterval" data-bs-slide="prev">
+    <span class="carousel-control-prev-icon" aria-hidden="true"></span>
+    <span class="visually-hidden">Previous</span>
+  </button>
+  <button class="carousel-control-next" type="button" data-bs-target="#carouselExampleInterval" data-bs-slide="next">
+    <span class="carousel-control-next-icon" aria-hidden="true"></span>
+    <span class="visually-hidden">Next</span>
+  </button>
+</div>
+</body>
+
+</html>
